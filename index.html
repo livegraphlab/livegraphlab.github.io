@@ -183,7 +183,7 @@
         <a class="btn btn-lg btn-dark" href="https://drive.google.com/drive/folders/12rLiMMV1CslbEy__MvuaT5DYrSqtJSK-" role="button">CSM Data »</a>     
         </div>
             <div id="metadata" class="anchor-target" style="margin-top: 1rem;"><h2>Metadata</h2>
-                <p>We extract all the blocks before Aug 1st, 2022 (i.e., from block #0 to block #15,255,104). Then, we parse all the transaction data and log data via toolkit Ethereum ETL. Through this way, we obtain a network with more than 4.5 million nodes and 124 million edges. The data are stored in a tabular format with the following headers: <i>collection address</i>, <i>block number</i>, <i>from address</i>, <i>to address</i>, <i>token id</i>, <i>transaction hash</i>, <i>value</i> and <i>timestamp</i>.
+                <p>We extract all the blocks before Aug 1st, 2022 (i.e., from block #0 to block #15,255,104). Then, we parse all the transaction data and log data via toolkit Ethereum ETL. Through this way, we obtain a network with more than 4.5 million nodes and 124 million edges. The data are stored in a tabular format with the following headers: <i>collection address</i>, <i>block number</i>, <i>from address</i>, <i>to address</i>, <i>token id</i>, <i>transaction hash</i>, <i>value</i> and <i>timestamp</i>. The statistical information is as follows:</p>
 
                 <style>
                     table {
@@ -222,8 +222,82 @@
                     </tr>
                 </table>
             </div>
+            <p>The data format is as follows:</p>
+            <div class="box",style="margin-left:auto;margin-right:auto;">
+                <pre>
+                     collection address,block number,from address,to address,token id,transaction hash,value,timestamp
+                     "0x55b9...",4012328,"0x51e1...","0x6c9a...","0x9000...","0xb31f...",0.0,1499867867
+                     "0xf4b1...",4254954,"0x7307...","0x3a3f...","0x8000...","0x3409...",0.0,1504953873
+                     ...
+                </pre>
+            </div>
 
+            <div id="linkdata" class="anchor-target" style="margin-top: 1rem;"><h2>Link Prediction and Node Classification</h2>
+                <p>For link prediction task, we remove all the transactions associated with the Null address, which results in 3.13 million nodes and 23.13 million edges in the directed graph. The data file includes four columns: <i>from id</i>, <i>to id</i>, <i>edge weight</i> and <i>timestamp</i>.</p>
 
+                <p>For node classification task, we first filter out nodes that only have one transaction. Then, each node' maximum transaction interval is calculated. If the maximum interval is within one day, we call it daily trader. Likewise, if the maximum interval is within one week and larger than one day, we call it weekly trader, and so forth. This process results in a large-scale directed graph with about 1.80 million nodes and 21.83 million edges. The data format is as follows:</p>
+
+                <div class="box",style="margin-left:auto;margin-right:auto;">
+                    <pre>
+                        fromID,toID,Weight,Timestamp
+                        0,1,4,1499867388
+                        0,2,5,1508115274
+                        ...
+                    </pre>
+                    <pre>
+                        nodeID,Label
+                        0,0
+                        1,3
+                        ...
+                    </pre>
+                </div>
+
+            <div id="csmdata" class="anchor-target" style="margin-top: 1rem;"><h2>Continuous Subgraph Matching</h2>
+                <p>Similar to link prediction task, we also remove all the transactions associated with the Null address. We use NFT transactions from year 2017 to the end of 2021 as the initial graph, and then the transactions in the year of 2022 are regarded as the insertion streams. Since the original nodes and edges are unlabeled, we randomly assign one of 30 labels to each node, and we do not assign labels for edges and we use the edges' directions as labels. The graph update stream are structured as follows:</p>
+
+                <div class="box",style="margin-left:auto;margin-right:auto;">
+                    <pre>
+                        v 3 1
+                        e 2 3 2
+                        -v 2 1
+                        -e 0 1 0
+                    </pre>
+                </div>
+                Graph update stream is a collection of insertions and deletions of a vertex or an edge.
+                <ul>
+                    <li>
+                        A vertex insertion is represented by <code>v vertex-id vertex-label</code>.
+                    </li>
+                    <li>
+                        A vertex deletion is represented by <code>-v vertex-id vertex-label</code>.
+                    </li>
+                    <li>
+                        An edge insertion is represented by <code>e vertex-id-1 vertex-id-2 edge-label</code>.
+                    </li>
+                    <li>
+                        An edge deletion is represented by <code>-e vertex-id-1 vertex-id-2 edge-label</code>.
+                    </li>
+                </ul>
+                Each line in the query graph file represent a vertex or an edge.
+                <ul>
+                    <li>
+                        A vertex is represented by <code>v vertex-id vertex-label</code>.
+                    </li>
+                    <li>
+                        An edge is represented by <code>e vertex-id-1 vertex-id-2 edge-label</code>.
+                    </li>
+                </ul>
+                The two endpoints of an edge must appear before the edge. For example,
+                <div class="box",style="margin-left:auto;margin-right:auto;">
+                    <pre>
+                        v 0 0
+                        v 1 0
+                        e 0 1 0
+                        v 2 1
+                        e 0 2 1
+                        e 2 1 2
+                    </pre>
+                </div>
         <!--</div>-->
       </div>
 
@@ -381,5 +455,4 @@ $( document ).ready(function() {
 </script>
 
 </body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
-
 
