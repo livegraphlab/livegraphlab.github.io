@@ -1,1 +1,385 @@
+<html lang="en"><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta property="og:image" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Live Graph Lab: Towards Open, Dynamic and Real Transaction Graphs with NFT</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
+    <style>
+        /* Show it is fixed to the top */
+        body {
+            padding-top: 4.5rem;
+            position: relative;
+        }
+
+        .anchor-target:target::before {
+            display: block;
+            content: " ";
+            margin-top: -60px;
+            padding-top: 60px;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+
+        .jumbotron {
+            margin-bottom: .5rem;
+            padding: 2rem 2rem;
+        }
+
+        .disclaimer {
+            background-color: #fcf8e3;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #faebcc;
+            border-radius: 4px;
+            font-size: .8rem;
+        }
+
+        .headshot {
+            width: 8rem;
+            margin: 0.4rem;
+        }
+
+        .card-body {
+            padding: 0.5rem;
+        }
+
+        .citation {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.42857143;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .answerbutton {
+            white-space: normal !important;
+            word-wrap: break-word;
+            text-align: left;
+        }
+
+        /*.answergroup {*/
+        /*display: inline-grid;*/
+        /*}*/
+
+        .box-shadow {
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+        }
+
+        .fig-shadow {
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .15);
+        }
+
+
+        .navbar-brand {
+            font-family: 'Carter One', cursive;
+            font-size: 1.5rem;
+        }
+
+        .swagtitleemph {
+            font-family: 'Carter One', cursive;
+        }
+
+        .swagemph {
+            font-family: 'Carter One', cursive;
+        }
+
+        .msg {
+            margin-bottom: 0;
+        }
+
+        #presets > button {
+            margin-right: 0.25rem;
+            margin-left: 0.25rem;
+        }
+
+        #presets {
+            margin-bottom: 1rem;
+        }
+
+        /*https://stackoverflow.com/questions/35647044/boostrap-how-to-stick-a-button-over-an-image-when-re-sizing*/
+        .img-wrapper {
+            position: relative;
+        }
+
+        .img-overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: left;
+        }
+
+        .img-overlay:before {
+            content: ' ';
+            display: block;
+            /* adjust 'height' to position overlay content vertically */
+            height: 40%;
+        }
+
+        .input-group>.input-group-prepend {
+            width: 100px;
+        }
+        .input-group .input-group-text {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body data-spy="scroll" data-target="#navbarCollapse" data-offset="200" data-new-gr-c-s-check-loaded="14.1017.0" data-gr-ext-installed="">
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Live Graph Lab</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#metadata">Metadata</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main" class="container">
+    <h1><span class="swagemph">Live Graph Lab</span>: Towards Open, Dynamic and Real Transaction Graphs with NFT
+</h1>
+    <div id="about" class="anchor-target" style="margin-top: 1rem;"><h2></h2>
+        <p>Temporal graphs provide a more accurate representation of real-world systems like social networks, citation networks and the Web. By studying temporal graphs, we can gain insights into the temporal dynamics and understand how these systems evolve and function.</p>
+
+        <p>In the current literature, studies are usually conducted on a set of <b>outdated</b> and <b>incomplete</b> graphs. The majority of the aforementioned graphs are either not publicly available or their graph structures are incomplete since they cannot record all the interactions in graph. Moreover, even through all the interactions are recorded, they may not be able to be shared in a public and <b>timely evolving manner</b>, such as social networks in companies like Meta and Tencent. Thus, for meaningful temporal graph analysis and benchmarks, we need some graph datasets that are <b>openly available</b>, <b>dynamically evolving</b> and <b>encompass real interactions</b>.</p>
+
+        <p>In this paper, we introduce the concept of <b>Live Graph Lab</b> for temporal graphs, which enables open, dynamic and real transaction graphs from blockchains. To enrich the current datasets and overcome their limitations, we instantiate a live graph with NFT transaction network by synchronizing a full Ethereum node, thus it continuously keeps up with the latest Ethereum block and includes all the transaction data.</p>
+        
+        <p>In addition, we present a temporal graph extracted from a specific time period spanning from 2017 to 2022, which comprises over <b>4.5 million nodes</b> and <b>124 million edges</b>. Then, comprehensive analyses are performed, and the results demonstrate that our presented live graph exhibits a variety of characteristics, offering exciting opportunities for the graph community.</p>
+
+
+        <a class="btn btn-lg btn-info" href="https://github.com/livegraphlab/code" role="button">Experimental Codes »</a>
+        <a class="btn btn-lg btn-warning" href="https://drive.google.com/file/d/1lyCcfGbmU0eW7aHijKSMvmVqBVmwTsmV" role="button">Metadata »</a>
+        <a class="btn btn-lg btn-secondary" href="https://drive.google.com/file/d/1kEIJYp126nnC8L7lTv-yQaNalW7j4EFO" role="button">Link Prediction Data »</a>
+        <a class="btn btn-lg btn-primary" href="https://drive.google.com/file/d/15-v2wywEf-vobQw63t8bPno2Qj-1Cd_q" role="button">Node Classification Data »</a>
+        <a class="btn btn-lg btn-dark" href="https://drive.google.com/drive/folders/12rLiMMV1CslbEy__MvuaT5DYrSqtJSK-" role="button">CSM Data »</a>     
+        </div>
+            <div id="metadata" class="anchor-target" style="margin-top: 1rem;"><h2>Metadata</h2>
+                <p>We extract all the blocks before Aug 1st, 2022 (i.e., from block #0 to block #15,255,104). Then, we parse all the transaction data and log data via toolkit Ethereum ETL. Through this way, we obtain a network with more than 4.5 million nodes and 124 million edges. The data are stored in a tabular format with the following headers: <i>collection address</i>, <i>block number</i>, <i>from address</i>, <i>to address</i>, <i>token id</i>, <i>transaction hash</i>, <i>value</i> and <i>timestamp</i>.
+
+                <style>
+                    table {
+                        border-collapse: collapse;}
+                    th, td {
+                        border: 1px solid #ccc;
+                        padding: 10px;
+                        text-align: left;}
+                    tr:nth-child(even) {
+                        background-color: #eee;}
+                    tr:nth-child(odd) {
+                        background-color: #fff;}            
+                </style>
+
+                <table style="margin-left:auto;margin-right:auto;">
+                    <tr>
+                        <th> Descriptions</th><th>Statistics</th>
+                    </tr>
+                    <tr>
+                        <td>Start date (mm-dd-yyyy, UTC)</td><td>07-12-2017 13:49</td>
+                    </tr>
+                    <tr>
+                        <td>End date (mm-dd-yyyy, UTC)</td><td>08-01-2022 06:50</td>
+                    </tr>
+                    <tr>
+                        <td>Number of NFT collections</td><td>97,667</td>
+                    </tr>
+                    <tr>
+                        <td>Number of NFT tokens</td><td>77,991,885</td>
+                    </tr>
+                    <tr>
+                        <td>Number of account addresses</td><td>4,531,020 </td>
+                    </tr>
+                    <tr>
+                        <td>Number of transactions</td><td>124,660,813</td>
+                    </tr>
+                </table>
+            </div>
+
+
+        <!--</div>-->
+      </div>
+
+        </div>
+
+        <div id="contact" class="anchor-target">
+            <h2>Contact</h2>
+            <p>Questions about Live Graph Lab, or want to get in touch? Contact us at <a href="https://github.com/livegraphlab/livegraphlab.github.io/issues/">livegraphlab</a>.</p>
+        </div>
+        
+        <p>Design and CSS courtesy: <a href="https://rowanzellers.com/">Rowan Zellers</a>.</p>
+
+        <p>Template borrowed from <a href="https://twibot22.github.io/">TwiBot-22</a>.</p>
+
+         <div class="row">
+          <div class="col-lg-4 thumb d-flex align-items-center">
+            <a class="thumbnail">
+              <img class="img-fluid" src="lud.png" alt="">
+            </a>
+          </div>
+          <div class="col-lg-4 thumb d-flex align-items-center">
+            <a class="thumbnail">
+              <img class="img-fluid" src="csschool.png" alt="">
+            </a>
+          </div>
+          <div class="col-lg-4 thumb d-flex align-items-center">
+            <a class="thumbnail">
+              <img class="img-fluid" src="xjtu.jpg" alt="">
+            </a>
+         </div>
+         </div>
+
+    </div>
+</main>
+
+
+<!-- Bootstrap JS and it's dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+</script>
+
+<script>
+var fields = ['domain', 'date', 'authors', 'title', 'article'];
+var searchParams = new URLSearchParams(window.location.search);
+
+function get_formdata() {
+  var formdata = {};
+  for (var i=0; i < fields.length; i++) {
+    formdata[fields[i]] = $('textarea[name="' + fields[i] + '"]').val();
+    searchParams.set(fields[i], formdata[fields[i]]);
+  }
+
+  var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+  history.pushState(null, '', newRelativePathQuery);
+  return formdata;
+}
+
+function generate(formdata, target) {
+  if (fields.indexOf(target) === -1) {
+    alert("Looks like you tried generating " + target + " but that's not one of the valid fields. wtf");
+    return ''
+  }
+  formdata["target"] = target;
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://grover.rowanzellers.com/api/gen', true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var newtext = JSON.parse(xhr.responseText)['gen'];
+      $('textarea[name="' + target + '"]').val(newtext);
+      $('#problems').empty();
+    }
+  };
+  xhr.send(JSON.stringify(formdata));
+  var waiting_msg = $('<div class="alert alert-secondary">');
+  waiting_msg.append('Waiting for response. This might take a while due to high traffic right now, sorry!');
+  $('#problems').append(waiting_msg);
+}
+
+function discriminate(formdata) {
+  formdata["target"] = "discrimination";
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://grover.rowanzellers.com/api/gen', true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var machineprob = JSON.parse(xhr.responseText)['groverprob'];
+      $('#problems').empty();
+
+      var label = 'Grover written';
+      var prob = machineprob;
+      if (machineprob < 0.5) {
+          label = 'Human written';
+          prob = 1-machineprob
+      }
+      prob = (100*prob).toFixed(1);
+
+      if (machineprob < 0.25) {
+          var prob_msg = $('<div class="alert alert-success">');
+      } else if (machineprob < 0.5) {
+          var prob_msg = $('<div class="alert alert-primary">');
+      } else if (machineprob < 0.75) {
+          var prob_msg = $('<div class="alert alert-warning">');
+      } else {
+          var prob_msg = $('<div class="alert alert-danger">');
+      }
+      prob_msg.append("We think it's <b>" + label + "</b>, with probability " + prob + "%.");
+      $('#problems').append(prob_msg);
+    }
+  };
+  xhr.send(JSON.stringify(formdata));
+  var waiting_msg = $('<div class="alert alert-secondary">');
+  waiting_msg.append('waiting for response.');
+  $('#problems').append(waiting_msg);
+}
+
+$( document ).ready(function() {
+    $.getJSON("examples.json?sigh=" + Math.floor(Math.random() * 1000), function (data) {
+      for (let i=0; i < data.length; i++) {
+          let mybutton = $('<button type="button" class="btn btn-info">').text(data[i].name);
+          mybutton.on('click', function() {
+              for (let key in data[i]) {
+                  if (key !== 'name' && data[i].hasOwnProperty(key)) {
+                    $('textarea[name="' + key + '"]').val(data[i][key]);
+                  }
+              }
+          });
+          $('#presets').append(mybutton);
+      }
+        var isempty=true;
+         // discriminate
+      $('#submitdisc').on('click', function () {
+        discriminate(get_formdata());
+      });
+      for (let i=0; i < fields.length; i++) {
+        $('#submit' + fields[i]).on('click', function () {
+          generate(get_formdata(), fields[i]);
+        });
+
+        if (searchParams.has(fields[i])) {
+          $('textarea[name="' + fields[i] + '"]').val(searchParams.get(fields[i]));
+          isempty=false;
+        }
+      }
+      // We're still empty so use preset
+        if (isempty) {
+            $('#presets').children()[0].click();
+        }
+    });
+
+});
+</script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+
 
